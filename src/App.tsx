@@ -73,8 +73,10 @@ export default function App() {
       setGeneratedImages(prev => ({ ...prev, [scene.id]: url }));
       setGeneratingStatus(prev => ({ ...prev, [scene.id]: 'success' }));
       return true;
-    } catch (err) {
+    } catch (err: any) {
       console.error(`Image generation for scene ${scene.id} failed:`, err);
+      // Alert the user so they (and we) know the exact error
+      alert(`Khung ${scene.id} lỗi tạo ảnh: ${err.message || String(err)}`);
       setGeneratingStatus(prev => ({ ...prev, [scene.id]: 'error' }));
       return false;
     }
