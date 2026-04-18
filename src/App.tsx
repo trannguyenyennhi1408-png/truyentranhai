@@ -85,8 +85,10 @@ export default function App() {
     setGeneratedImages({});
     setGeneratingStatus({});
 
-    // Process all images concurrently for maximum speed
-    await Promise.all(comicData.scenes.map(scene => drawImageTask(scene)));
+    // Process all images concurrently but with a 1.2s stagger to avoid rate limit (burst) and keep speed fast
+    await Promise.all(comicData.scenes.map((scene, idx) => 
+      new Promise(resolve => setTimeout(resolve, idx * 1200)).then(() => drawImageTask(scene))
+    ));
   };
 
   const updateSceneData = (id: number, field: keyof ComicScene, value: string) => {
