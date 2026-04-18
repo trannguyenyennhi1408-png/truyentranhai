@@ -102,21 +102,21 @@ export const generatePanelImage = async (scenePrompt: string, characterDesign: s
   if (!ai || !currentApiKey) throw new Error("API Key is not configured.");
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
-      contents: {
-        parts: [{ text: fullPrompt }],
-      },
+    const response = await ai.models.generateImages({
+      model: 'imagen-3.0-generate-001',
+      prompt: fullPrompt,
       config: {
-        imageConfig: { aspectRatio: "1:1" },
+        numberOfImages: 1,
+        aspectRatio: "1:1",
+        outputMimeType: "image/png"
       },
     });
 
-    for (const part of response.candidates[0].content.parts) {
-      if (part.inlineData) {
-        return `data:image/png;base64,${part.inlineData.data}`;
-      }
+    if (response.generatedImages && response.generatedImages.length > 0) {
+      const base64Data = response.generatedImages[0].image.imageBytes;
+      return `data:image/png;base64,${base64Data}`;
     }
+    
     throw new Error("No image data in response");
   } catch (err: any) {
     // Robust check for Rate Limit (429 / RESOURCE_EXHAUSTED)
