@@ -1,0 +1,6 @@
+{
+  "name": "Turbo Comic AI",
+  "description": "An AI-powered comic book generator that creates scripts and illustrations in parallel using Gemini and Imagen.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
