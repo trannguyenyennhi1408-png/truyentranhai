@@ -107,8 +107,7 @@ export const generatePanelImage = async (scenePrompt: string, characterDesign: s
       prompt: fullPrompt,
       config: {
         numberOfImages: 1,
-        aspectRatio: "1:1",
-        outputMimeType: "image/png"
+        aspectRatio: "1:1"
       },
     });
 
