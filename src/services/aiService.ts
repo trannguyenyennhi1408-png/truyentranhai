@@ -103,7 +103,7 @@ export const generatePanelImage = async (scenePrompt: string, characterDesign: s
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-image',
       contents: {
         parts: [{ text: fullPrompt }],
       },
